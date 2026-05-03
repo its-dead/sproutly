@@ -13,17 +13,19 @@ class PixelPerfectWrapper extends StatelessWidget {
         double scaleX = constraints.maxWidth / AppConstants.baseWidth;
         double scaleY = constraints.maxHeight / AppConstants.baseHeight;
 
-        // Keep aspect ratio (important)
-        double scale = scaleX < scaleY ? scaleX : scaleY;
+        double scale = (scaleX < scaleY ? scaleX : scaleY).clamp(1.0, 3.0);
 
-        return Center(
-          child: Transform.scale(
-            scale: scale,
-            alignment: Alignment.topLeft,
-            child: SizedBox(
-              width: AppConstants.baseWidth,
-              height: AppConstants.baseHeight,
-              child: child,
+        return Container(
+          color: Colors.lightGreen[100],
+          child: Center(
+            child: Transform.scale(
+              scale: scale,
+              alignment: Alignment.center,
+              child: SizedBox(
+                width: AppConstants.baseWidth,
+                height: AppConstants.baseHeight,
+                child: child,
+              ),
             ),
           ),
         );

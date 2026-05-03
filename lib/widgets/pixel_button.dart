@@ -36,6 +36,7 @@ class _PixelButtonState extends State<PixelButton> {
         isPressed ? widget.downImage : widget.upImage,
         width: widget.width,
         height: widget.height,
+        filterQuality: FilterQuality.none,
       ),
     );
   }

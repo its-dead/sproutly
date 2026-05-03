@@ -11,36 +11,70 @@ class TitleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PixelImage("assets/images/logo/logo.png", width: 150),
-            const SizedBox(height: 40),
-
-            PixelButton(
-              upImage: "assets/images/ui/buttons/play_up.png",
-              downImage: "assets/images/ui/buttons/play_down.png",
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) =>
-                        const PixelPerfectWrapper(child: HomeScreen()),
-                  ),
-                );
-              },
+      body: Stack(
+        children: [
+          // Background
+          Positioned.fill(
+            child: PixelImage(
+              "assets/images/bgs/title_bg.png",
+              fit: BoxFit.cover,
             ),
+          ),
 
-            const SizedBox(height: 20),
+          // Logo + tagline
+          Positioned(
+            top: 6 * 16.0,
+            left: 1 * 16.0,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // logo
+                PixelImage("assets/images/logo/logo.png"),
 
-            PixelButton(
-              upImage: "assets/images/ui/buttons/settings_up.png",
-              downImage: "assets/images/ui/buttons/settings_down.png",
-              onTap: () => showSettings(context),
+                const SizedBox(height: 4),
+
+                const Text(
+                  "GROW YOUR FOCUS!",
+                  style: TextStyle(fontSize: 10),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+
+          // Button row
+          Positioned(
+            top: 17 * 16.0,
+            left: 1 * 16.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // PLAY
+                PixelButton(
+                  upImage: "assets/images/ui/buttons/play_up.png",
+                  downImage: "assets/images/ui/buttons/play_down.png",
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            const PixelPerfectWrapper(child: HomeScreen()),
+                      ),
+                    );
+                    // navigate to home
+                  },
+                ),
+
+                // SETTINGS
+                PixelButton(
+                  upImage: "assets/images/ui/buttons/settings_up.png",
+                  downImage: "assets/images/ui/buttons/settings_down.png",
+                  onTap: () => showSettings(context),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
