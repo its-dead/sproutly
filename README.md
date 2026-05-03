@@ -1,3 +1,3 @@
 # sproutly
 
-A new Flutter project.
+Sproutly is a mobile productivity app that turns focus sessions into a visually engaging, interactive garden. Users start with a mostly empty plot of soil tiles and gradually beautify it by completing Pomodoro focus sessions. Each session unlocks new assets such as crops, flowers, trees, and bushes, slowly filling the garden with life and color. Some plants grow in stages, while decorative trees and bushes appear fully grown, creating a sense of progress and achievement. Optional messages and emoji reactions provide immediate visual feedback when tiles are unlocked or sessions are completed. By connecting productivity with a lively, pixel-art garden, Sproutly motivates users to complete tasks consistently while enjoying a playful, stress-free experience. Its simple interface and cute visuals make it suitable for students, professionals, or anyone seeking an engaging way to track focus.
