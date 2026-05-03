@@ -43,7 +43,9 @@ class GardenState extends ChangeNotifier {
 
     List<dynamic>? savedTiles = data["tiles"];
 
-    if (savedTiles != null && savedTiles.length == 54) {
+    if (savedTiles != null &&
+        savedTiles.length == 54 &&
+        savedTiles.every((e) => e != null)) {
       tiles = savedTiles.map((e) => TileData.fromJson(e)).toList();
     } else {
       _initTilesIfNeeded();

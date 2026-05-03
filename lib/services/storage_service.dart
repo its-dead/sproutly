@@ -32,7 +32,7 @@ class StorageService {
     if (tileJson != null) {
       tilesDecoded = jsonDecode(tileJson);
     } else {
-      tilesDecoded = List.generate(54, (_) => null);
+      tilesDecoded = [];
     }
 
     return {"sessions": sessions, "tiles": tilesDecoded};

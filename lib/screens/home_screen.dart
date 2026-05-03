@@ -55,20 +55,22 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
+          // Milestones
+          _buildMilestones(),
+
           // Garden Grid
           _buildGardenGrid(),
 
           // Plant Layer
           _buildPlantLayer(),
 
-          // Milestones
-          _buildMilestones(),
-
           // Top bar
           _buildTopBar(),
 
           // Bottom nav
           _buildBottomNav(),
+
+          FeedbackOverlay(),
         ],
       ),
     );
@@ -97,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
             top: (index ~/ 6) * 16.0 + (9 * 16) - (tile.stage == 3 ? 16 : 0),
             child: PixelImage(
               getPlantAsset(tile),
-              width: tile.stage == 3 ? 16 : 16,
+              width: 16,
               height: tile.stage == 3 ? 32 : 16,
               fit: BoxFit.fill,
             ),
@@ -159,8 +161,6 @@ class _HomeScreenState extends State<HomeScreen> {
           child: PixelButton(
             upImage: "assets/images/ui/buttons/settings_up.png",
             downImage: "assets/images/ui/buttons/settings_down.png",
-            width: 16,
-            height: 16,
             onTap: () => showSettings(context),
           ),
         ),
@@ -174,51 +174,36 @@ class _HomeScreenState extends State<HomeScreen> {
       left: 0,
       child: SizedBox(
         width: 10 * 16,
-        height: 3 * 16,
+        height: 2 * 16,
         child: Stack(
           children: [
             // HOME
-            Positioned(
-              left: 1 * 16,
-              child: PixelButton(
-                upImage: "assets/images/ui/buttons/home_up.png",
-                downImage: "assets/images/ui/buttons/home_down.png",
-                width: 2 * 16,
-                height: 3 * 16,
-                onTap: () {},
-              ),
+            PixelButton(
+              upImage: "assets/images/ui/buttons/home_up.png",
+              downImage: "assets/images/ui/buttons/home_down.png",
+              onTap: () {},
             ),
 
             // TIMER
-            Positioned(
-              left: 4 * 16,
-              child: PixelButton(
-                upImage: "assets/images/ui/buttons/timer_up.png",
-                downImage: "assets/images/ui/buttons/timer_down.png",
-                width: 2 * 16,
-                height: 3 * 16,
-                onTap: openTimer,
-              ),
+            PixelButton(
+              upImage: "assets/images/ui/buttons/timer_up.png",
+              downImage: "assets/images/ui/buttons/timer_down.png",
+              onTap: openTimer,
             ),
 
             // STATS
-            Positioned(
-              left: 7 * 16,
-              child: PixelButton(
-                upImage: "assets/images/ui/buttons/stats_up.png",
-                downImage: "assets/images/ui/buttons/stats_down.png",
-                width: 2 * 16,
-                height: 3 * 16,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          const PixelPerfectWrapper(child: StatsScreen()),
-                    ),
-                  );
-                },
-              ),
+            PixelButton(
+              upImage: "assets/images/ui/buttons/stats_up.png",
+              downImage: "assets/images/ui/buttons/stats_down.png",
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) =>
+                        const PixelPerfectWrapper(child: StatsScreen()),
+                  ),
+                );
+              },
             ),
           ],
         ),
