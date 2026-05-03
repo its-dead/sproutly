@@ -49,7 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           // Background
           Positioned.fill(
-            child: PixelImage("backgrounds/garden_bg.png", fit: BoxFit.cover),
+            child: PixelImage(
+              "assets/images/bgs/garden_bg.png",
+              fit: BoxFit.cover,
+            ),
           ),
 
           // Garden Grid
@@ -111,13 +114,16 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         if (garden.hasHouse)
           Positioned.fill(
-            child: PixelImage("decorations/house_layer.png", fit: BoxFit.cover),
+            child: PixelImage(
+              "assets/images/decorations/house_layer.png",
+              fit: BoxFit.cover,
+            ),
           ),
 
         if (garden.hasLandscape)
           Positioned.fill(
             child: PixelImage(
-              "decorations/landscape_layer.png",
+              "assets/images/decorations/landscape_layer.png",
               fit: BoxFit.cover,
             ),
           ),
@@ -125,14 +131,17 @@ class _HomeScreenState extends State<HomeScreen> {
         if (garden.hasFlowers)
           Positioned.fill(
             child: PixelImage(
-              "decorations/flowers_layer.png",
+              "assets/images/decorations/flowers_layer.png",
               fit: BoxFit.cover,
             ),
           ),
 
         if (garden.hasPond)
           Positioned.fill(
-            child: PixelImage("decorations/pond_layer.png", fit: BoxFit.cover),
+            child: PixelImage(
+              "assets/images/decorations/pond_layer.png",
+              fit: BoxFit.cover,
+            ),
           ),
       ],
     );
@@ -148,8 +157,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Align(
           alignment: Alignment.centerRight,
           child: PixelButton(
-            upImage: "ui/buttons/settings_up.png",
-            downImage: "ui/buttons/settings_down.png",
+            upImage: "assets/images/ui/buttons/settings_up.png",
+            downImage: "assets/images/ui/buttons/settings_down.png",
             width: 16,
             height: 16,
             onTap: () => showSettings(context),
@@ -172,8 +181,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Positioned(
               left: 1 * 16,
               child: PixelButton(
-                upImage: "ui/buttons/home_up.png",
-                downImage: "ui/buttons/home_down.png",
+                upImage: "assets/images/ui/buttons/home_up.png",
+                downImage: "assets/images/ui/buttons/home_down.png",
                 width: 2 * 16,
                 height: 3 * 16,
                 onTap: () {},
@@ -184,8 +193,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Positioned(
               left: 4 * 16,
               child: PixelButton(
-                upImage: "ui/buttons/timer_up.png",
-                downImage: "ui/buttons/timer_down.png",
+                upImage: "assets/images/ui/buttons/timer_up.png",
+                downImage: "assets/images/ui/buttons/timer_down.png",
                 width: 2 * 16,
                 height: 3 * 16,
                 onTap: openTimer,
@@ -196,8 +205,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Positioned(
               left: 7 * 16,
               child: PixelButton(
-                upImage: "ui/buttons/stats_up.png",
-                downImage: "ui/buttons/stats_down.png",
+                upImage: "assets/images/ui/buttons/stats_up.png",
+                downImage: "assets/images/ui/buttons/stats_down.png",
                 width: 2 * 16,
                 height: 3 * 16,
                 onTap: () {

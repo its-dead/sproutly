@@ -21,7 +21,14 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/
+    - assets/images/
+    - assets/images/bgs/
+    - assets/images/decorations/
+    - assets/images/logo/
+    - assets/images/plants/
+    - assets/images/ui/
+    - assets/images/ui/buttons/
+    - assets/images/ui/panels/
 
   fonts:
     - family: KiwiSoda

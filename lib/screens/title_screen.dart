@@ -15,16 +15,12 @@ class TitleScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            PixelImage("images/logo/logo.png", width: 150),
-            const Text(
-              'Sproutly 🌱',
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-            ),
+            PixelImage("assets/images/logo/logo.png", width: 150),
             const SizedBox(height: 40),
 
             PixelButton(
-              upImage: "images/ui/buttons/play_up.png",
-              downImage: "images/ui/buttons/play_down.png",
+              upImage: "assets/images/ui/buttons/play_up.png",
+              downImage: "assets/images/ui/buttons/play_down.png",
               onTap: () {
                 Navigator.push(
                   context,
@@ -39,8 +35,8 @@ class TitleScreen extends StatelessWidget {
             const SizedBox(height: 20),
 
             PixelButton(
-              upImage: "images/ui/buttons/settings_up.png",
-              downImage: "images/ui/buttons/settings_down.png",
+              upImage: "assets/images/ui/buttons/settings_up.png",
+              downImage: "assets/images/ui/buttons/settings_down.png",
               onTap: () => showSettings(context),
             ),
           ],
