@@ -152,17 +152,28 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildTopBar() {
     return Positioned(
       top: 0,
-      right: 0,
+      left: 0,
       child: SizedBox(
         width: 10 * 16,
         height: 2 * 16,
-        child: Align(
-          alignment: Alignment.centerRight,
-          child: PixelButton(
-            upImage: "assets/images/ui/buttons/settings_up.png",
-            downImage: "assets/images/ui/buttons/settings_down.png",
-            onTap: () => showSettings(context),
-          ),
+        child: Stack(
+          children: [
+            // Settings button
+            Positioned(
+              left: 8 * 16,
+              child: SizedBox(
+                width: 2 * 16,
+                height: 2 * 16,
+                child: Center(
+                  child: PixelButton(
+                    upImage: "assets/images/ui/buttons/settings_up.png",
+                    downImage: "assets/images/ui/buttons/settings_down.png",
+                    onTap: () => showSettings(context),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -170,40 +181,50 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildBottomNav() {
     return Positioned(
-      bottom: 0,
+      top: (22 - 3) * 16.0,
       left: 0,
+      right: 0,
       child: SizedBox(
-        width: 10 * 16,
-        height: 2 * 16,
-        child: Stack(
+        height: 3 * 16,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // HOME
-            PixelButton(
-              upImage: "assets/images/ui/buttons/home_up.png",
-              downImage: "assets/images/ui/buttons/home_down.png",
-              onTap: () {},
+            SizedBox(
+              width: 2 * 16,
+              height: 3 * 16,
+              child: PixelButton(
+                upImage: "assets/images/ui/buttons/home_up.png",
+                downImage: "assets/images/ui/buttons/home_down.png",
+                onTap: () {},
+              ),
             ),
 
-            // TIMER
-            PixelButton(
-              upImage: "assets/images/ui/buttons/timer_up.png",
-              downImage: "assets/images/ui/buttons/timer_down.png",
-              onTap: openTimer,
+            SizedBox(
+              width: 2 * 16,
+              height: 3 * 16,
+              child: PixelButton(
+                upImage: "assets/images/ui/buttons/timer_up.png",
+                downImage: "assets/images/ui/buttons/timer_down.png",
+                onTap: openTimer,
+              ),
             ),
 
-            // STATS
-            PixelButton(
-              upImage: "assets/images/ui/buttons/stats_up.png",
-              downImage: "assets/images/ui/buttons/stats_down.png",
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) =>
-                        const PixelPerfectWrapper(child: StatsScreen()),
-                  ),
-                );
-              },
+            SizedBox(
+              width: 2 * 16,
+              height: 3 * 16,
+              child: PixelButton(
+                upImage: "assets/images/ui/buttons/stats_up.png",
+                downImage: "assets/images/ui/buttons/stats_down.png",
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          const PixelPerfectWrapper(child: StatsScreen()),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),

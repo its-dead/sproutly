@@ -4,16 +4,16 @@ class PixelButton extends StatefulWidget {
   final String upImage;
   final String downImage;
   final VoidCallback onTap;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
 
   const PixelButton({
     super.key,
     required this.upImage,
     required this.downImage,
     required this.onTap,
-    this.width = 80,
-    this.height = 80,
+    this.width,
+    this.height,
   });
 
   @override
@@ -32,11 +32,15 @@ class _PixelButtonState extends State<PixelButton> {
         widget.onTap();
       },
       onTapCancel: () => setState(() => isPressed = false),
-      child: Image.asset(
-        isPressed ? widget.downImage : widget.upImage,
+
+      child: SizedBox(
         width: widget.width,
         height: widget.height,
-        filterQuality: FilterQuality.none,
+        child: Image.asset(
+          isPressed ? widget.downImage : widget.upImage,
+          fit: BoxFit.none,
+          filterQuality: FilterQuality.none,
+        ),
       ),
     );
   }

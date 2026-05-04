@@ -18,13 +18,17 @@ class PixelPerfectWrapper extends StatelessWidget {
         return Container(
           color: Colors.lightGreen[100],
           child: Center(
-            child: Transform.scale(
-              scale: scale,
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: AppConstants.baseWidth,
-                height: AppConstants.baseHeight,
-                child: child,
+            child: SizedBox(
+              width: AppConstants.baseWidth * scale,
+              height: AppConstants.baseHeight * scale,
+              child: FittedBox(
+                fit: BoxFit.contain,
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: AppConstants.baseWidth,
+                  height: AppConstants.baseHeight,
+                  child: child,
+                ),
               ),
             ),
           ),
