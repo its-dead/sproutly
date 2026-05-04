@@ -10,62 +10,84 @@ class StatsScreen extends StatelessWidget {
     final garden = Provider.of<GardenState>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Statistics")),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Motivation
-              Center(
-                child: Text(
-                  _getMotivationMessage(garden),
-                  style: const TextStyle(fontSize: 10),
-                ),
+      backgroundColor: const Color(0xFFF3E7D3),
+
+      body: Stack(
+        children: [
+          // content
+          Positioned.fill(
+            child: SafeArea(
+              child: Column(
+                children: [
+                  const SizedBox(height: 8),
+
+                  _buildHeader(garden),
+
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          // core stats
+                          _statCard(
+                            "Sessions",
+                            garden.completedSessions.toString(),
+                          ),
+                          _statCard(
+                            "Milestones",
+                            _milestoneCount(garden).toString(),
+                          ),
+                          _statCard(
+                            "Plants Grown",
+                            garden.fullyGrownPlants.toString(),
+                          ),
+
+                          const SizedBox(height: 12),
+
+                          // progress section
+                          const Text("Garden Progress"),
+                          buildPixelProgress(garden.gardenCompletion / 100),
+                          Text(
+                            "${garden.gardenCompletion.toStringAsFixed(1)}%",
+                            style: const TextStyle(fontSize: 10),
+                          ),
+
+                          const SizedBox(height: 12),
+
+                          // mini garden preview
+                          const Text("Garden Preview"),
+                          miniGardenProgress(garden),
+
+                          const SizedBox(height: 12),
+
+                          // extra stats
+                          const Text("Extra Stats"),
+                          _statCard(
+                            "Score",
+                            garden.productivityScore.toString(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-
-              const SizedBox(height: 16),
-              Divider(thickness: 1),
-
-              // Core stats
-              _statCard("Sessions", garden.completedSessions.toString()),
-              _statCard("Milestones", _milestoneCount(garden).toString()),
-              _statCard("Plants Grown", garden.fullyGrownPlants.toString()),
-
-              const SizedBox(height: 16),
-              Divider(thickness: 1),
-
-              // Progress section
-              const Text("Garden Progress"),
-              const SizedBox(height: 8),
-
-              buildPixelProgress(garden.gardenCompletion / 100),
-
-              const SizedBox(height: 6),
-
-              Text(
-                "${garden.gardenCompletion.toStringAsFixed(1)}%",
-                style: const TextStyle(fontSize: 10),
-              ),
-
-              const SizedBox(height: 20),
-
-              // Mini garden preview
-              const Text("Garden Preview"),
-              const SizedBox(height: 8),
-
-              Center(child: miniGardenProgress(garden)),
-
-              const SizedBox(height: 20),
-              Divider(thickness: 1),
-
-              // Extra stats
-              _statCard("Score", garden.productivityScore.toString()),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
+    );
+  }
+
+  Widget _buildHeader(GardenState garden) {
+    return Column(
+      children: [
+        Text(
+          _getMotivationMessage(garden),
+          style: const TextStyle(fontSize: 10),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 8),
+      ],
     );
   }
 
