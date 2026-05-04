@@ -8,8 +8,8 @@ import 'package:sproutly/widgets/pixel_button.dart';
 import 'package:sproutly/widgets/pixel_image.dart';
 import '../models/garden_state.dart';
 import '../widgets/garden_grid.dart';
-import '../widgets/timer_popup.dart';
 import 'stats_screen.dart';
+import '../utils/timer_helper.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,13 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
     Future.microtask(() {
       Provider.of<GardenState>(context, listen: false).loadGarden();
     });
-  }
-
-  void openTimer() {
-    showDialog(
-      context: context,
-      builder: (_) => const PixelPerfectWrapper(child: TimerPopup()),
-    );
   }
 
   @override
@@ -205,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: PixelButton(
                 upImage: "assets/images/ui/buttons/timer_up.png",
                 downImage: "assets/images/ui/buttons/timer_down.png",
-                onTap: openTimer,
+                onTap: () => openTimer(context),
               ),
             ),
 

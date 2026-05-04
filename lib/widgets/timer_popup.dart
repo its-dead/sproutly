@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sproutly/widgets/pixel_image.dart';
 import '../models/garden_state.dart';
 import '../services/timer_service.dart';
 
@@ -32,39 +33,71 @@ class _TimerPopupState extends State<TimerPopup> {
   Widget build(BuildContext context) {
     final timer = context.watch<TimerService>();
 
-    return AlertDialog(
-      title: const Text("Focus Timer"),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            formatTime(timer.remainingSeconds),
-            style: const TextStyle(fontSize: 32),
-          ),
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Container(color: Colors.black.withOpacity(0.6)),
+        ),
 
-          const SizedBox(height: 8),
-
-          Text(timer.statusText),
-
-          const SizedBox(height: 16),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // panel
+        Center(
+          child: Stack(
+            alignment: Alignment.center,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  timer.isRunning ? timer.pause() : timer.start();
-                },
-                child: Text(timer.isRunning ? "Pause" : "Start"),
-              ),
-              ElevatedButton(
-                onPressed: () => timer.reset(),
-                child: const Text("Reset"),
+              PixelImage("assets/images/ui/panels/timer_panel.png"),
+
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    formatTime(timer.remainingSeconds),
+                    style: const TextStyle(fontSize: 20),
+                  ),
+
+                  const SizedBox(height: 6),
+
+                  Text(timer.statusText),
+
+                  const SizedBox(height: 12),
+
+                  // text controls
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          timer.isRunning ? timer.pause() : timer.start();
+                        },
+                        child: Text(
+                          timer.isRunning ? "❚❚ Pause" : "▶ Start",
+                          style: const TextStyle(
+                            fontSize: 12,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(width: 12),
+
+                      GestureDetector(
+                        onTap: timer.reset,
+                        child: const Text(
+                          "↺ Reset",
+                          style: TextStyle(
+                            fontSize: 12,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

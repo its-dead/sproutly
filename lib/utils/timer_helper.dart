@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../widgets/settings_popup.dart';
+import 'package:sproutly/widgets/timer_popup.dart';
 
-void showSettings(BuildContext context) {
+void openTimer(BuildContext context) {
   Navigator.of(context).push(
     PageRouteBuilder(
       opaque: false,
       barrierDismissible: true,
-      pageBuilder: (_, __, ___) => const SettingsPopup(),
+      pageBuilder: (_, __, ___) => const TimerPopup(),
     ),
   );
 }
