@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sproutly/utils/app_style.dart';
 import 'package:sproutly/widgets/pixel_image.dart';
 
 class SettingsPopup extends StatefulWidget {
@@ -15,114 +16,85 @@ class _SettingsPopupState extends State<SettingsPopup> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        // background dim
-        GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Container(color: Colors.black.withOpacity(0.6)),
-        ),
+    return Material(
+      color: Colors.transparent,
 
-        Center(
-          child: Stack(
-            children: [
-              // PANEL BACKGROUND
-              PixelImage(
-                "assets/images/ui/panels/settings_panel.png",
-                width: 8 * 16,
-                height: 9 * 16,
-              ),
+      child: Stack(
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Container(color: Colors.black.withOpacity(0.6)),
+          ),
 
-              // INTERACTIVE LAYER
-              SizedBox(
-                width: 8 * 16,
-                height: 9 * 16,
+          Center(
+            child: Transform.scale(
+              scale: 2.0,
+              child: SizedBox(
+                width: 8 * 16.0,
+                height: 9 * 16.0,
                 child: Stack(
                   children: [
-                    _buildToggle(
-                      4,
-                      "Sound",
-                      sound,
-                      (value) => setState(() => sound = value),
-                    ),
-                    _buildToggle(
-                      6,
-                      "Vibration",
-                      vibration,
-                      (value) => setState(() => vibration = value),
-                    ),
-                    _buildToggle(
-                      8,
-                      "Notifications",
-                      notifications,
-                      (value) => setState(() => notifications = value),
+                    // panel image
+                    Positioned.fill(
+                      child: PixelImage(
+                        "assets/images/ui/panels/settings_panel.png",
+                        width: 8 * 16.0,
+                        height: 9 * 16.0,
+                      ),
                     ),
 
-                    _buildCloseButton(context),
+                    // content
+                    Column(
+                      children: [
+                        const SizedBox(height: 40),
+
+                        _buildToggle("Sound", false, (_) {}),
+                        _buildToggle("Vibration", false, (_) {}),
+                        _buildToggle("Notifications", false, (_) {}),
+                      ],
+                    ),
                   ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildToggle(
-    int row,
-    String label,
-    bool value,
-    Function(bool) onToggle,
-  ) {
-    return Positioned(
-      top: row * 16.0,
-      left: 1 * 16.0,
-      right: 1 * 16.0,
-      child: SizedBox(
-        height: 32, // match toggle height
-        child: Row(
-          children: [
-            // TEXT (flexible)
-            Expanded(
-              child: Text(
-                label,
-                style: const TextStyle(fontSize: 10),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-
-            // small spacing (pixel-friendly)
-            const SizedBox(width: 4),
-
-            // TOGGLE (fixed size)
-            GestureDetector(
-              onTap: () => onToggle(!value),
-              child: SizedBox(
-                width: 32,
-                height: 32,
-                child: PixelImage(
-                  value
-                      ? "assets/images/ui/buttons/toggle_on.png"
-                      : "assets/images/ui/buttons/toggle_off.png",
-                ),
-              ),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
 
-  Widget _buildCloseButton(BuildContext context) {
-    return Positioned(
-      bottom: 8,
-      left: 0,
-      right: 0,
-      child: Center(
-        child: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: const Text("Close", style: TextStyle(fontSize: 10)),
+  Widget _buildToggle(String label, bool value, Function(bool) onToggle) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 0),
+      child: SizedBox(
+        width: 6 * 16.0,
+        height: 28.0,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Text(
+                label,
+                style: AppTextStyles.body,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+
+            GestureDetector(
+              onTap: () => onToggle(!value),
+              child: SizedBox(
+                width: 28.0,
+                height: 28.0,
+                child: PixelImage(
+                  value
+                      ? "assets/images/ui/buttons/toggle_on.png"
+                      : "assets/images/ui/buttons/toggle_off.png",
+                  width: 28.0,
+                  height: 28.0,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

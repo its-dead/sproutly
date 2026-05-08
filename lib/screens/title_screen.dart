@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sproutly/utils/app_style.dart';
 import 'package:sproutly/utils/settings_helper.dart';
 import 'package:sproutly/widgets/pixel_image.dart';
 import 'home_screen.dart';
@@ -23,7 +24,7 @@ class TitleScreen extends StatelessWidget {
 
           // Logo + tagline
           Positioned(
-            top: 6 * 16.0,
+            top: 5 * 16.0,
             left: 1 * 16.0,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,7 +36,7 @@ class TitleScreen extends StatelessWidget {
 
                 const Text(
                   "GROW YOUR FOCUS!",
-                  style: TextStyle(fontSize: 10),
+                  style: AppTextStyles.subtitle,
                   textAlign: TextAlign.center,
                 ),
               ],

@@ -31,12 +31,9 @@ flutter:
     - assets/images/ui/panels/
 
   fonts:
-    - family: KiwiSoda
-      fonts:
-        - asset: assets/fonts/KiwiSoda.ttf
     - family: RainyHearts
       fonts:
         - asset: assets/fonts/rainyhearts.ttf
     - family: SproutLands
       fonts:
-        - asset: assets/fonts/SproutLands.ttf
+        - asset: assets/fonts/sproutlands.ttf

@@ -11,7 +11,7 @@ class PixelImage extends StatelessWidget {
     super.key,
     this.width,
     this.height,
-    this.fit = BoxFit.cover,
+    this.fit = BoxFit.fill,
   });
 
   @override

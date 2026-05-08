@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sproutly/utils/app_style.dart';
 import '../models/garden_state.dart';
 
 class FeedbackOverlay extends StatefulWidget {
@@ -28,9 +29,7 @@ class _FeedbackOverlayState extends State<FeedbackOverlay> {
           color: Colors.black.withOpacity(0.6),
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(feedback.text, style: const TextStyle(fontSize: 10)),
-            ],
+            children: [Text(feedback.text, style: AppTextStyles.body)],
           ),
         ),
       ),

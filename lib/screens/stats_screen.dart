@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sproutly/utils/app_style.dart';
 import '../models/garden_state.dart';
 
 class StatsScreen extends StatelessWidget {
@@ -10,7 +11,7 @@ class StatsScreen extends StatelessWidget {
     final garden = Provider.of<GardenState>(context);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF3E7D3),
+      backgroundColor: AppColors.background,
 
       body: Stack(
         children: [
@@ -19,53 +20,86 @@ class StatsScreen extends StatelessWidget {
             child: SafeArea(
               child: Column(
                 children: [
-                  const SizedBox(height: 8),
-
-                  _buildHeader(garden),
+                  _buildHeader(context, garden),
 
                   Expanded(
                     child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          // core stats
-                          _statCard(
-                            "Sessions",
-                            garden.completedSessions.toString(),
-                          ),
-                          _statCard(
-                            "Milestones",
-                            _milestoneCount(garden).toString(),
-                          ),
-                          _statCard(
-                            "Plants Grown",
-                            garden.fullyGrownPlants.toString(),
-                          ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
 
-                          const SizedBox(height: 12),
+                        child: Column(
+                          children: [
+                            // core stats
+                            _statCard(
+                              "Sessions",
+                              garden.completedSessions.toString(),
+                              garden.completedSessions,
+                              20,
+                            ),
+                            _statCard(
+                              "Milestones",
+                              _milestoneCount(garden).toString(),
+                              _milestoneCount(garden),
+                              4,
+                            ),
+                            _statCard(
+                              "Plants Grown",
+                              garden.fullyGrownPlants.toString(),
+                              garden.fullyGrownPlants,
+                              54,
+                            ),
 
-                          // progress section
-                          const Text("Garden Progress"),
-                          buildPixelProgress(garden.gardenCompletion / 100),
-                          Text(
-                            "${garden.gardenCompletion.toStringAsFixed(1)}%",
-                            style: const TextStyle(fontSize: 10),
-                          ),
+                            const SizedBox(height: 10),
+                            Divider(color: AppColors.text.withOpacity(0.5)),
+                            const SizedBox(height: 10),
 
-                          const SizedBox(height: 12),
+                            // progress section
+                            const Text(
+                              "Garden Progress",
+                              style: AppTextStyles.subtitle,
+                            ),
+                            const SizedBox(height: 6),
+                            buildPixelProgress(garden.gardenCompletion / 100),
+                            Text(
+                              "${garden.gardenCompletion.toStringAsFixed(1)}%",
+                              style: AppTextStyles.body,
+                            ),
 
-                          // mini garden preview
-                          const Text("Garden Preview"),
-                          miniGardenProgress(garden),
+                            const SizedBox(height: 10),
+                            Divider(color: AppColors.text.withOpacity(0.5)),
+                            const SizedBox(height: 10),
 
-                          const SizedBox(height: 12),
+                            // mini garden preview
+                            const Text(
+                              "Garden Preview",
+                              style: AppTextStyles.subtitle,
+                            ),
+                            const SizedBox(height: 6),
+                            miniGardenProgress(garden),
 
-                          // extra stats
-                          const Text("Extra Stats"),
-                          _statCard(
-                            "Score",
-                            garden.productivityScore.toString(),
-                          ),
-                        ],
+                            const SizedBox(height: 10),
+                            Divider(color: AppColors.text.withOpacity(0.5)),
+                            const SizedBox(height: 10),
+
+                            // extra stats
+                            const Text(
+                              "Extra Stats",
+                              style: AppTextStyles.subtitle,
+                            ),
+                            const SizedBox(height: 6),
+                            _statCard(
+                              "Score",
+                              garden.productivityScore.toString(),
+                              garden.productivityScore,
+                              100,
+                            ),
+
+                            const SizedBox(height: 10),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -78,52 +112,79 @@ class StatsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(GardenState garden) {
-    return Column(
-      children: [
-        Text(
-          _getMotivationMessage(garden),
-          style: const TextStyle(fontSize: 10),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 8),
-      ],
+  Widget _buildHeader(BuildContext context, GardenState garden) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, bottom: 16),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 6),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Text("← BACK", style: AppTextStyles.textBtn),
+              ),
+            ),
+          ),
+
+          Text("STATISTICS", style: AppTextStyles.title),
+
+          const SizedBox(height: 6),
+
+          Text(
+            _getMotivationMessage(garden),
+            style: AppTextStyles.body,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _statCard(String label, String value) {
+  Widget _statCard(String label, String value, int current, int max) {
+    int blocks = 10;
+    int filled = ((current / max) * blocks).clamp(0, blocks).round();
+
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      padding: const EdgeInsets.all(8),
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.brown.shade200,
+        color: AppColors.statCard,
         borderRadius: BorderRadius.circular(6),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [Text(label), Text(value)],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(label.toUpperCase(), style: AppTextStyles.body),
+
+              Text(value, style: AppTextStyles.body),
+            ],
+          ),
+
+          const SizedBox(height: 6),
+
+          Row(
+            children: List.generate(blocks, (i) {
+              return Container(
+                width: 6,
+                height: 6,
+                margin: const EdgeInsets.only(right: 2),
+                decoration: BoxDecoration(
+                  color: i < filled
+                      ? AppColors.progressFilled
+                      : AppColors.progressEmpty,
+                  // border: Border.all(color: AppColors.gardenBrown, width: 1),
+                ),
+              );
+            }),
+          ),
+        ],
       ),
-    );
-  }
-
-  Widget statBar(String label, int value, int max) {
-    int blocks = 10;
-    int filled = ((value / max) * blocks).round();
-
-    return Row(
-      children: [
-        SizedBox(width: 80, child: Text(label)),
-        Row(
-          children: List.generate(blocks, (i) {
-            return Container(
-              width: 8,
-              height: 8,
-              margin: const EdgeInsets.all(1),
-              color: i < filled ? Colors.green : Colors.grey,
-            );
-          }),
-        ),
-      ],
     );
   }
 
@@ -135,30 +196,52 @@ class StatsScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(totalBlocks, (index) {
         return Container(
-          width: 12,
-          height: 12,
+          width: 10,
+          height: 10,
           margin: const EdgeInsets.all(1),
-          color: index < filled ? Colors.green : Colors.brown,
+          color: index < filled
+              ? AppColors.progressFilled
+              : AppColors.gardenBrown,
         );
       }),
     );
   }
 
   Widget miniGardenProgress(GardenState garden) {
-    return Wrap(
-      spacing: 2,
-      runSpacing: 2,
-      children: garden.tiles.map((tile) {
-        return Container(
-          width: 6,
-          height: 6,
-          color: tile.stage == 3
-              ? Colors.green
-              : tile.stage > 0
-              ? Colors.lightGreen
-              : Colors.brown,
-        );
-      }).toList(),
+    return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: AppColors.statCard,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Column(
+        children: List.generate(9, (row) {
+          return Row(
+            mainAxisSize: MainAxisSize.min,
+            children: List.generate(6, (col) {
+              int index = row * 6 + col;
+              final tile = garden.tiles[index];
+
+              Color color;
+
+              if (tile.stage == 3) {
+                color = AppColors.progressFilled;
+              } else if (tile.stage > 0) {
+                color = AppColors.gardenLight;
+              } else {
+                color = AppColors.gardenBrown;
+              }
+
+              return Container(
+                width: 7,
+                height: 7,
+                margin: const EdgeInsets.all(1),
+                color: color,
+              );
+            }),
+          );
+        }),
+      ),
     );
   }
 
