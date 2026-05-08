@@ -72,10 +72,8 @@ class _TimerPopupState extends State<TimerPopup> {
                         // TIMER
                         Text(
                           formatTime(timer.remainingSeconds),
-                          style: AppTextStyles.title.copyWith(fontSize: 30),
+                          style: AppTextStyles.title.copyWith(fontSize: 34),
                         ),
-
-                        const SizedBox(height: 1),
 
                         // STATUS
                         Text(timer.statusText, style: AppTextStyles.body),
@@ -106,7 +104,7 @@ class _TimerPopupState extends State<TimerPopup> {
                           ],
                         ),
 
-                        const SizedBox(height: 6),
+                        const SizedBox(height: 12),
                       ],
                     ),
                   ],

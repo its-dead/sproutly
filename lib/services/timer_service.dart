@@ -5,9 +5,9 @@ class TimerService extends ChangeNotifier {
   bool isFocus = true;
   bool isRunning = false;
 
-  final Duration focusDuration = const Duration(minutes: 25);
-  final Duration shortBreak = const Duration(minutes: 5);
-  final Duration longBreak = const Duration(minutes: 15);
+  final Duration focusDuration = const Duration(seconds: 10);
+  final Duration shortBreak = const Duration(seconds: 5);
+  final Duration longBreak = const Duration(seconds: 8);
 
   Timer? _timer;
   int _remainingSeconds = 0;
@@ -70,7 +70,7 @@ class TimerService extends ChangeNotifier {
 
   String get statusText {
     if (isFocus) return "Focus Time !";
-    return "Break Time ☕︎";
+    return "Break Time ♨";
   }
 
   @override

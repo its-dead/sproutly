@@ -20,13 +20,13 @@ class _FeedbackOverlayState extends State<FeedbackOverlay> {
     final feedback = garden.feedbackQueue.first;
 
     return Positioned(
-      top: 4 * 16,
+      top: 1 * 16,
       left: 0,
       right: 0,
       child: Center(
         child: Container(
           padding: const EdgeInsets.all(8),
-          color: Colors.black.withOpacity(0.6),
+          color: Colors.brown.withOpacity(0.6),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [Text(feedback.text, style: AppTextStyles.body)],

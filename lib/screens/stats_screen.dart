@@ -233,8 +233,8 @@ class StatsScreen extends StatelessWidget {
               }
 
               return Container(
-                width: 7,
-                height: 7,
+                width: 6.5,
+                height: 6.5,
                 margin: const EdgeInsets.all(1),
                 color: color,
               );
