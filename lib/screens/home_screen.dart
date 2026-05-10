@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sproutly/models/plant_type.dart';
+import 'package:sproutly/models/tile_data.dart';
 import 'package:sproutly/utils/pixel_perfect_wrapper.dart';
 import 'package:sproutly/utils/plant_assets.dart';
 import 'package:sproutly/utils/settings_helper.dart';
@@ -87,13 +89,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
           if (tile.stage == 0) return const SizedBox();
 
+          bool tall = isTallPlant(tile);
+
           return Positioned(
             left: (index % 6) * 16.0 + (2 * 16),
-            top: (index ~/ 6) * 16.0 + (9 * 16) - (tile.stage == 3 ? 16 : 0),
+            top: (index ~/ 6) * 16.0 + (9 * 16) - (tall ? 16 : 0),
+
             child: PixelImage(
               getPlantAsset(tile),
               width: 16,
-              height: tile.stage == 3 ? 32 : 16,
+              height: tall ? 32 : 16,
               fit: BoxFit.fill,
             ),
           );
@@ -223,5 +228,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  // helper to determine if a plant is tall (needs 32px instead of 16px height)
+  bool isTallPlant(TileData tile) {
+    return [
+      PlantType.sunflower,
+      PlantType.pineapple,
+      PlantType.starflower,
+      PlantType.sunflower,
+      PlantType.tomato,
+    ].contains(tile.type);
   }
 }
