@@ -69,8 +69,8 @@ class TimerService extends ChangeNotifier {
   }
 
   String get statusText {
-    if (isFocus) return "𓂃✍︎ Focus Time 𓂃✍︎";
-    return "ᶻ𝗓𐰁 Break Time ᶻ𝗓𐰁";
+    if (isFocus) return "Focus Time 𓂃✍︎";
+    return "Break Time ᶻ𝗓𐰁";
   }
 
   @override

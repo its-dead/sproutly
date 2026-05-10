@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sproutly/models/plant_type.dart';
 import 'package:sproutly/models/tile_data.dart';
+import 'package:sproutly/services/timer_service.dart';
 import 'package:sproutly/utils/pixel_perfect_wrapper.dart';
 import 'package:sproutly/utils/plant_assets.dart';
 import 'package:sproutly/utils/settings_helper.dart';
@@ -28,6 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
     Future.microtask(() {
       Provider.of<GardenState>(context, listen: false).loadGarden();
     });
+
+    final timer = context.read<TimerService>();
+    final garden = context.read<GardenState>();
+
+    timer.onFocusComplete = () {
+      garden.completeSession();
+    };
   }
 
   @override

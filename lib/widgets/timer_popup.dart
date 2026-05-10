@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sproutly/utils/app_style.dart';
 import 'package:sproutly/widgets/pixel_image.dart';
-import '../models/garden_state.dart';
 import '../services/timer_service.dart';
 
 class TimerPopup extends StatefulWidget {
@@ -13,17 +12,6 @@ class TimerPopup extends StatefulWidget {
 }
 
 class _TimerPopupState extends State<TimerPopup> {
-  @override
-  void initState() {
-    super.initState();
-
-    final timer = context.read<TimerService>();
-
-    timer.onFocusComplete = () {
-      context.read<GardenState>().completeSession();
-    };
-  }
-
   String formatTime(int seconds) {
     int min = seconds ~/ 60;
     int sec = seconds % 60;

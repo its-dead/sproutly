@@ -126,17 +126,28 @@ class GardenState extends ChangeNotifier {
     feedbackQueue.add(FeedbackMessage(text: text));
     notifyListeners();
 
-    if (_feedbackActive) return;
+    if (!_feedbackActive) {
+      _processFeedbackQueue();
+    }
+  }
+
+  void _processFeedbackQueue() {
+    if (feedbackQueue.isEmpty) {
+      _feedbackActive = false;
+      return;
+    }
 
     _feedbackActive = true;
+    notifyListeners();
 
     Future.delayed(const Duration(seconds: 2), () {
       if (feedbackQueue.isNotEmpty) {
         feedbackQueue.removeAt(0);
       }
 
-      _feedbackActive = false;
       notifyListeners();
+
+      _processFeedbackQueue();
     });
   }
 
