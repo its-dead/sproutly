@@ -57,14 +57,33 @@ class TimerService extends ChangeNotifier {
   }
 
   void _handleComplete() {
+    _timer?.cancel();
+    isRunning = false;
+
     if (isFocus) {
-      onFocusComplete?.call(); // tell garden "session done"
+      // finish focus session
+      onFocusComplete?.call();
+
       isFocus = false;
     } else {
+      // finish break session
       isFocus = true;
     }
 
     _setInitialTime();
+
+    // auto-start next phase
+    isRunning = true;
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_remainingSeconds > 0) {
+        _remainingSeconds--;
+        notifyListeners();
+      } else {
+        _handleComplete();
+      }
+    });
+
     notifyListeners();
   }
 

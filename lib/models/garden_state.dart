@@ -100,6 +100,7 @@ class GardenState extends ChangeNotifier {
     }
   }
 
+  // used low numbers for completed sessions for demo purposes
   void _checkMilestones() {
     if (completedSessions >= 3 && !hasHouse) {
       hasHouse = true;

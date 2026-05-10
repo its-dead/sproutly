@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
               getPlantAsset(tile),
               width: 16,
               height: tall ? 32 : 16,
-              fit: BoxFit.fill,
+              fit: BoxFit.contain,
             ),
           );
         }),

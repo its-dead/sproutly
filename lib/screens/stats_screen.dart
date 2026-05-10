@@ -37,19 +37,19 @@ class StatsScreen extends StatelessWidget {
                               "Sessions",
                               garden.completedSessions.toString(),
                               garden.completedSessions,
-                              162,
+                              162, // total sessions possible
                             ),
                             _statCard(
                               "Milestones",
                               _milestoneCount(garden).toString(),
                               _milestoneCount(garden),
-                              4,
+                              4, // total milestones
                             ),
                             _statCard(
                               "Plants Grown",
                               garden.fullyGrownPlants.toString(),
                               garden.fullyGrownPlants,
-                              54,
+                              54, // total garden tiles to grow plants on
                             ),
 
                             const SizedBox(height: 10),
@@ -94,7 +94,7 @@ class StatsScreen extends StatelessWidget {
                               "Score",
                               productivityScore(garden).toString(),
                               productivityScore(garden),
-                              100,
+                              800, // max score (based on all sessions, plants, and milestones)
                             ),
 
                             const SizedBox(height: 10),
@@ -272,9 +272,9 @@ class StatsScreen extends StatelessWidget {
   }
 
   String _getMotivationMessage(GardenState garden) {
-    if (garden.completedSessions < 5) {
+    if (garden.completedSessions < 15) {
       return "Keep going ⚘ your garden is just starting!";
-    } else if (garden.completedSessions < 15) {
+    } else if (garden.completedSessions < 60) {
       return "Nice progress ✮ consistency is key!";
     } else {
       return "You're on fire ঌ your garden is thriving!";
