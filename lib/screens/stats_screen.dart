@@ -37,7 +37,7 @@ class StatsScreen extends StatelessWidget {
                               "Sessions",
                               garden.completedSessions.toString(),
                               garden.completedSessions,
-                              20,
+                              162,
                             ),
                             _statCard(
                               "Milestones",
@@ -92,8 +92,8 @@ class StatsScreen extends StatelessWidget {
                             const SizedBox(height: 6),
                             _statCard(
                               "Score",
-                              garden.productivityScore.toString(),
-                              garden.productivityScore,
+                              productivityScore(garden).toString(),
+                              productivityScore(garden),
                               100,
                             ),
 
@@ -143,8 +143,13 @@ class StatsScreen extends StatelessWidget {
   }
 
   Widget _statCard(String label, String value, int current, int max) {
-    int blocks = 10;
-    int filled = ((current / max) * blocks).clamp(0, blocks).round();
+    int blocks = 20;
+    int filled = ((current / max) * blocks).clamp(0, blocks).floor();
+
+    // avoids tiny progress showing as empty
+    if (current > 0 && filled == 0) {
+      filled = 1;
+    }
 
     return Container(
       width: double.infinity,
@@ -168,12 +173,13 @@ class StatsScreen extends StatelessWidget {
 
           const SizedBox(height: 6),
 
+          // progress bar
           Row(
             children: List.generate(blocks, (i) {
               return Container(
-                width: 6,
-                height: 6,
-                margin: const EdgeInsets.only(right: 2),
+                width: 4,
+                height: 4,
+                margin: const EdgeInsets.only(right: 1),
                 decoration: BoxDecoration(
                   color: i < filled
                       ? AppColors.progressFilled
@@ -189,16 +195,21 @@ class StatsScreen extends StatelessWidget {
   }
 
   Widget buildPixelProgress(double progress) {
-    int totalBlocks = 10;
-    int filled = (progress * totalBlocks).round();
+    int totalBlocks = 20;
+    int filled = (progress * totalBlocks).floor();
+
+    // avoids tiny progress showing as empty
+    if (progress > 0 && filled == 0) {
+      filled = 1;
+    }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(totalBlocks, (index) {
         return Container(
-          width: 10,
-          height: 10,
-          margin: const EdgeInsets.all(1),
+          width: 5.5,
+          height: 5.5,
+          margin: const EdgeInsets.only(right: 1),
           color: index < filled
               ? AppColors.progressFilled
               : AppColors.gardenBrown,
@@ -252,6 +263,12 @@ class StatsScreen extends StatelessWidget {
     if (garden.hasFlowers) count++;
     if (garden.hasPond) count++;
     return count;
+  }
+
+  int productivityScore(GardenState garden) {
+    return (garden.completedSessions * 2) +
+        (garden.fullyGrownPlants * 8) +
+        (_milestoneCount(garden) * 15);
   }
 
   String _getMotivationMessage(GardenState garden) {

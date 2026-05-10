@@ -111,7 +111,7 @@ class GardenState extends ChangeNotifier {
       addFeedback("ᨒ↟ᯓ.°_ Landscape unlocked!");
     }
 
-    if (completedSessions >= 10 && !hasFlowers) {
+    if (completedSessions >= 12 && !hasFlowers) {
       hasFlowers = true;
       addFeedback("‧₊˚❀༉‧₊˚. Flowers unlocked!");
     }
@@ -147,9 +147,5 @@ class GardenState extends ChangeNotifier {
 
   double get gardenCompletion {
     return (fullyGrownPlants / tiles.length) * 100;
-  }
-
-  int get productivityScore {
-    return (completedSessions * 10) + (fullyGrownPlants * 5);
   }
 }
